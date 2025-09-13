@@ -1,0 +1,31 @@
+# Data files
+*.csv
+como_products_scraped.csv
+
+# History files
+notifications/
+subscribers.json
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+
+# Environment
+.env
+.venv
+env/
+venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
