@@ -209,28 +209,3 @@ def scrape_como_products(base_url):
     return pd.DataFrame(products)
 
 
-# Scrape data
-if __name__ == "__main__":
-    url = "https://shop.comofootball.com/products.json"
-    
-    print("Scraping Como Football products...")
-    df = scrape_como_products(url)
-    
-    # Display results
-    print(f"\nScraped {len(df)} products:")
-    print("="*50)
-    print(df.head())
-    
-    # Save to CSV
-    df.to_csv('como_products_scraped.csv', index=False)
-    print(f"\nData saved to como_products_scraped.csv")
-    
-    # Size analysis CSV removed - all data available in main CSV
-    
-    # Basic stats
-    print(f"\nBasic Stats:")
-    print(f"Total products: {len(df)}")
-    # Extract numeric values from formatted price strings for stats
-    numeric_prices = df['current_price'].str.replace('€', '').astype(float)
-    print(f"Price range: €{numeric_prices.min():.2f} - €{numeric_prices.max():.2f}")
-    print(f"Average price: €{numeric_prices.mean():.2f}")
