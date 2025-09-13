@@ -1,0 +1,31 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:shop.comofootball.com)",
+      "mcp__ide__executeCode",
+      "Bash(python:*)",
+      "Bash(pip install:*)",
+      "Bash(dir)",
+      "Bash(del como_products_data.json)",
+      "Bash(del como_products_data.csv)",
+      "Bash(del display_data.py)",
+      "Bash(del debug_ciabatte.py)",
+      "Bash(del:*)",
+      "mcp__GitHub__create_repository",
+      "mcp__GitHub__create_or_update_file",
+      "mcp__GitHub__get_me",
+      "mcp__GitHub__push_files",
+      "mcp__GitHub__get_file_contents",
+      "Bash(git init:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git config:*)",
+      "Bash(git remote add:*)",
+      "Bash(git push:*)",
+      "Bash(git branch:*)",
+      "Bash(git pull:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
