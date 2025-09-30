@@ -66,7 +66,7 @@ def save_subscribers():
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """Start command handler"""
     welcome_text = """
-🏟️ *Como 1907 Products Bot*
+🏟️ Como 1907 Products Bot
 
 Available commands:
 /sizesequence - Show products with non-sequential sizes
@@ -75,12 +75,12 @@ Available commands:
 /subscribe - Get automatic notifications
 /unsubscribe - Stop notifications
 
-🔔 *Auto-refresh:* Every hour
-📊 *Notifications:* New products, size changes, discounts
+🔔 Auto-refresh: Every hour
+📊 Notifications: New products, size changes, discounts
 
 Data from Como Football official shop
     """
-    await update.message.reply_text(welcome_text, parse_mode='Markdown')
+    await update.message.reply_text(welcome_text)
 
 async def size_sequence(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """Handle /sizesequence command - show non-sequential products"""
@@ -103,21 +103,21 @@ async def size_sequence(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return
 
     # Format response
-    response = f"🔍 *Non-Sequential Size Products* ({len(non_sequential)} found)\n\n"
+    response = f"🔍 Non-Sequential Size Products ({len(non_sequential)} found)\n\n"
 
     for idx, row in non_sequential.iterrows():
         product_name = row['title']
         sizes = row['size']
 
-        response += f"• *{product_name}* ({sizes})\n"
+        response += f"• {product_name} ({sizes})\n"
 
         # Split message if too long (Telegram limit ~4096 chars)
         if len(response) > 3500:
-            await update.message.reply_text(response, parse_mode='Markdown')
+            await update.message.reply_text(response)
             response = ""
 
     if response:
-        await update.message.reply_text(response, parse_mode='Markdown')
+        await update.message.reply_text(response)
 
 async def size_type(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """Handle /sizetype command - show products with 'option' size type"""
@@ -140,49 +140,49 @@ async def size_type(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return
 
     # Format response
-    response = f"📊 *Products with 'option' Size Type* ({len(option_products)} found)\n\n"
+    response = f"📊 Products with 'option' Size Type ({len(option_products)} found)\n\n"
 
     for idx, row in option_products.iterrows():
         product_name = row['title']
 
-        response += f"• *{product_name}*\n"
+        response += f"• {product_name}\n"
 
         # Split message if too long (Telegram limit ~4096 chars)
         if len(response) > 3500:
-            await update.message.reply_text(response, parse_mode='Markdown')
+            await update.message.reply_text(response)
             response = ""
 
     if response:
-        await update.message.reply_text(response, parse_mode='Markdown')
+        await update.message.reply_text(response)
 
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """Handle /help command - show all available commands"""
     help_text = """
-🏟️ *Como 1907 Products Bot - Help*
+🏟️ Como 1907 Products Bot - Help
 
-*Available Commands:*
+Available Commands:
 
-🔍 `/sizesequence`
+🔍 /sizesequence
 Show products with non-sequential sizes
 
-📊 `/sizetype`
+📊 /sizetype
 Show products with 'option' size type
 
-🔄 `/refresh`
+🔄 /refresh
 Update data from Como Football shop
 
-❓ `/help`
+❓ /help
 Show this help message
 
-📋 `/start`
+📋 /start
 Welcome message and basic info
 
 ---
-*Data Source:* Como Football Official Shop
-*Total Products:* ~343 items
-*Last Updated:* Use /refresh to get latest data
+Data Source: Como Football Official Shop
+Total Products: ~343 items
+Last Updated: Use /refresh to get latest data
     """
-    await update.message.reply_text(help_text, parse_mode='Markdown')
+    await update.message.reply_text(help_text)
 
 async def subscribe(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """Handle /subscribe command"""
@@ -195,13 +195,12 @@ async def subscribe(update: Update, context: ContextTypes.DEFAULT_TYPE):
         subscribers.add(user_id)
         save_subscribers()
         await update.message.reply_text(
-            "🔔 *Subscribed!* You'll receive notifications for:\n\n"
+            "🔔 Subscribed! You'll receive notifications for:\n\n"
             "🆕 New products\n"
             "📐 Size sequence changes\n"
             "💰 New discounts\n\n"
-            "*Auto-refresh:* Every hour\n"
-            "Use /unsubscribe to stop notifications",
-            parse_mode='Markdown'
+            "Auto-refresh: Every hour\n"
+            "Use /unsubscribe to stop notifications"
         )
 
 async def unsubscribe(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -212,7 +211,7 @@ async def unsubscribe(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if user_id in subscribers:
         subscribers.remove(user_id)
         save_subscribers()
-        await update.message.reply_text("❌ *Unsubscribed* from notifications", parse_mode='Markdown')
+        await update.message.reply_text("❌ Unsubscribed from notifications")
     else:
         await update.message.reply_text("You're not currently subscribed to notifications")
 
@@ -308,22 +307,22 @@ class ChangeDetector:
         notifications = []
 
         if changes['new_products']:
-            msg = f"🆕 *New Products* ({len(changes['new_products'])} found)\n\n"
+            msg = f"🆕 New Products ({len(changes['new_products'])} found)\n\n"
             for product in changes['new_products']:
-                msg += f"• *{product['title']}* - {product['price']}\n"
+                msg += f"• {product['title']} - {product['price']}\n"
             notifications.append(msg)
 
         if changes['size_changes']:
-            msg = f"📐 *Size Changes* ({len(changes['size_changes'])} found)\n\n"
+            msg = f"📐 Size Changes ({len(changes['size_changes'])} found)\n\n"
             for change in changes['size_changes']:
                 status = "✅ Fixed" if change['to'] == 'Yes' else "❌ Broken"
-                msg += f"• *{change['title']}* - {status}\n"
+                msg += f"• {change['title']} - {status}\n"
             notifications.append(msg)
 
         if changes['new_discounts']:
-            msg = f"💰 *New Discounts* ({len(changes['new_discounts'])} found)\n\n"
+            msg = f"💰 New Discounts ({len(changes['new_discounts'])} found)\n\n"
             for discount in changes['new_discounts']:
-                msg += f"• *{discount['title']}*\n"
+                msg += f"• {discount['title']}\n"
                 msg += f"  {discount['current_price']} (was {discount['original_price']}) - {discount['discount_percent']}\n"
             notifications.append(msg)
 
@@ -363,7 +362,7 @@ class ChangeDetector:
 
 async def refresh(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """Handle /refresh command - run scraper and detect changes"""
-    await update.message.reply_text("🔄 *Refreshing data from Como Football shop...*", parse_mode='Markdown')
+    await update.message.reply_text("🔄 Refreshing data from Como Football shop...")
 
     try:
         # Initialize change detector
@@ -392,17 +391,16 @@ async def refresh(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
             # Send success message
             await update.message.reply_text(
-                f"✅ *Data refreshed successfully!*\n\nTotal products: {total_products}",
-                parse_mode='Markdown'
+                f"✅ Data refreshed successfully!\n\nTotal products: {total_products}"
             )
 
             # Send change notifications if any
             if notifications:
-                await update.message.reply_text("📢 *Changes detected:*", parse_mode='Markdown')
+                await update.message.reply_text("📢 Changes detected:")
                 for notification in notifications:
-                    await update.message.reply_text(notification, parse_mode='Markdown')
+                    await update.message.reply_text(notification)
             else:
-                await update.message.reply_text("📋 *No changes* since last update", parse_mode='Markdown')
+                await update.message.reply_text("📋 No changes since last update")
 
             # Save current data for next comparison
             detector.save_current_data()
@@ -411,14 +409,13 @@ async def refresh(update: Update, context: ContextTypes.DEFAULT_TYPE):
             # Show error if scraping failed
             error_msg = result.stderr[:500] if result.stderr else "Unknown error occurred"
             await update.message.reply_text(
-                f"❌ *Error refreshing data:*\n\n`{error_msg}`",
-                parse_mode='Markdown'
+                f"❌ Error refreshing data:\n\n{error_msg}"
             )
 
     except subprocess.TimeoutExpired:
-        await update.message.reply_text("⏰ *Timeout:* Scraping took too long (>5 minutes)", parse_mode='Markdown')
+        await update.message.reply_text("⏰ Timeout: Scraping took too long (>5 minutes)")
     except Exception as e:
-        await update.message.reply_text(f"❌ *Error:* {str(e)}")
+        await update.message.reply_text(f"❌ Error: {str(e)}")
 
 async def auto_refresh_and_notify():
     """Background task to auto-refresh data and send notifications"""
@@ -457,16 +454,14 @@ async def auto_refresh_and_notify():
                             # Send header message
                             await app_instance.bot.send_message(
                                 chat_id=user_id,
-                                text="🔔 *Auto-Update Notification*",
-                                parse_mode='Markdown'
+                                text="🔔 Auto-Update Notification"
                             )
 
                             # Send each notification
                             for notification in notifications:
                                 await app_instance.bot.send_message(
                                     chat_id=user_id,
-                                    text=notification,
-                                    parse_mode='Markdown'
+                                    text=notification
                                 )
 
                         except Exception as e:
