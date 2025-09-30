@@ -494,7 +494,7 @@ async def post_init(application):
     global app_instance
     app_instance = application
     # Start auto-refresh background task
-    asyncio.create_task(auto_refresh_and_notify())
+    application.create_task(auto_refresh_and_notify())
 
 def main():
     """Start the bot"""
