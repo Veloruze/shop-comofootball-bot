@@ -23,7 +23,10 @@
       "Bash(git remote add:*)",
       "Bash(git push:*)",
       "Bash(git branch:*)",
-      "Bash(git pull:*)"
+      "Bash(git pull:*)",
+      "mcp__GitHub__list_branches",
+      "Bash(git log:*)",
+      "Bash(git filter-branch:*)"
     ],
     "deny": [],
     "ask": []
