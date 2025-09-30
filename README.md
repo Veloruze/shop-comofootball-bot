@@ -39,15 +39,37 @@ pip install -r requirements.txt
 
 ### Setup
 1. Clone repository
-2. Install dependencies
-3. Setup Telegram Bot Token
-4. Run bot
+```bash
+git clone https://github.com/Veloruze/shop-comofootball-bot.git
+cd shop-comofootball-bot
+```
 
-### Telegram Bot Setup
-1. Chat dengan @BotFather di Telegram
-2. Create new bot: `/newbot`
-3. Get bot token
-4. Update token di `como_telegram_bot.py`
+2. Install dependencies
+```bash
+pip install -r requirements.txt
+```
+
+3. Setup Telegram Bot Token
+   - Chat dengan [@BotFather](https://t.me/BotFather) di Telegram
+   - Create new bot: `/newbot`
+   - Follow instructions dan copy bot token
+
+4. Create `.env` file
+```bash
+# Create .env file in project root
+TELEGRAM_BOT_TOKEN=your_bot_token_here
+```
+
+5. Run bot
+```bash
+python como_telegram_bot.py
+```
+
+### ⚠️ Security Notes
+- **NEVER** commit `.env` file ke git
+- `.env` sudah included di `.gitignore`
+- Bot token is loaded from environment variable
+- Keep your token secure and private
 
 ## Usage 📱
 
